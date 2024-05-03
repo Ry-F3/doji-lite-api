@@ -40,3 +40,29 @@
 | 12   | Ensure JWT tokens are sent only over HTTPS by setting `JWT_AUTH_SECURE` to `True`                               | Set `JWT_AUTH_SECURE = True` in `settings.py`   |
 | 13   | Specify the name of the authentication cookie by setting `JWT_AUTH_COOKIE`                                      | Set `JWT_AUTH_COOKIE = 'my-app-auth'` in `settings.py`|
 | 14   | Specify the name of the refresh token cookie by setting `JWT_AUTH_REFRESH_COOKIE`                                | Set `JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'` in `settings.py`|
+
+
+#### Requesting user details 
+
+| Step | Description                                                                                                    | Command                                          |
+|------|----------------------------------------------------------------------------------------------------------------|--------------------------------------------------|
+| 1    | Create a `serializer.py` file in the main project folder.                                                    | (Create the file manually)                       |
+| 2    | Add the following code to `serializer.py`                                                                      |                                                   |
+|      | ```python                                                                                                      |                                                   |
+|      | from dj_rest_auth.serializers import UserDetailsSerializer                                                    |                                                   |
+|      | from rest_framework import serializers                                                                         |                                                   |
+|      |                                                                                                                |                                                   |
+|      | class CurrentUserSerializer(UserDetailsSerializer):                                                           |                                                   |
+|      |     profile_id = serializers.ReadOnlyField(source='profile.id')                                                |                                                   |
+|      |     profile_image = serializers.ReadOnlyField(source='profile.image.url')                                       |                                                   |
+|      |                                                                                                                |                                                   |
+|      |     class Meta(UserDetailsSerializer.Meta):                                                                   |                                                   |
+|      |         fields = UserDetailsSerializer.Meta.fields + (                                                         |                                                   |
+|      |             'profile_id', 'profile_image'                                                                     |                                                   |
+|      |         )  # Add code to serialize user image and profile id                                                    |                                                   |
+|      |                                                                                                                |                                                   |
+|      | REST_AUTH_SERIALIZERS = {                                                                                    |                                                   |
+|      |     'USER_DETAILS_SERIALIZER': 'project_name.serializers.CurrentUserSerializer'                               |                                                   |
+|      | }  # Overwrite the default user serializer                                                                    |                                                   |
+|      | ```                                                                                                            |                                                   |
+| 3    | Run the database migrations.                                                                                  | `python3 manage.py migrate`                      |

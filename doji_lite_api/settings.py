@@ -46,6 +46,10 @@ JWT_AUTH_SECURE = True # sent over https only
 JWT_AUTH_COOKIE = 'my-app-auth' # declare cookie name access
 JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token' # declare cookie name refresh
 
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'doji_lite_api.serializers.CurrentUserSerializer'
+}
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
