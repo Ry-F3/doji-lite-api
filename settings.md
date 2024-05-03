@@ -53,3 +53,14 @@ REST_AUTH_SERIALIZERS = {
 
 
 ---------------------------------------------------------------------------------
+
+#### JSON render setting
+
+Please place this under REST_FRAMEWORK setting.
+
+<code>
+if 'DEV' not in os.environ:
+    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
+        'rest_framework.renderers.JSONRenderer',
+    ]
+</code>
