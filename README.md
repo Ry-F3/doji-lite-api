@@ -31,11 +31,15 @@
 | 3    | Include `dj_rest_auth.urls` in the main URL patterns list                                                        | Add `path('dj-rest-auth/', include('dj_rest_auth.urls'))` to `urls.py`                                        |
 | 4    | Migrate the database schema for `dj-rest-auth`                                                                  | `python3 manage.py migrate`                     |
 | 5    | Install `dj-rest-auth` with social authentication support                                                       | `pip install 'dj-rest-auth[with_social]'`       |
-| 6    | Add necessary apps for user registration to `INSTALLED_APPS`                                                     | Add apps to `INSTALLED_APPS` in `settings.py`   |
+| 6    | Add necessary apps for user registration to `INSTALLED_APPS`                                                     | Add apps to `INSTALLED_APPS` in `settings.py` including 'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration'|
 | 7    | Set the `SITE_ID` to 1                                                                                         | Set `SITE_ID = 1` in `settings.py`              |
 | 8    | Include `dj_rest_auth.registration.urls` in the main URL patterns list                                         | Add `path('dj-rest-auth/registration/', include('dj_rest_auth.registration.urls'))` to `urls.py`           |
 | 9    | Install `djangorestframework-simplejwt` package for JWT token support                                           | `pip install djangorestframework-simplejwt`     |
-| 10   | Configure DRF authentication settings based on environment (development or production)                         | Update `REST_FRAMEWORK` settings in `settings.py`|
+| 10   | Configure DRF authentication settings based on environment (development or production)                         | Update `REST_FRAMEWORK` settings in `settings.py` as follows:<br>`'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework.authentication.SessionAuthentication' if 'DEV' in os.environ else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'],`<br>`'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',`<br>`'PAGE_SIZE': 10,`<br>`'DATETIME_FORMAT': '%d %b %Y'`|
 | 11   | Enable token authentication in DRF by setting `REST_USE_JWT` to `True`                                          | Set `REST_USE_JWT = True` in `settings.py`      |
 | 12   | Ensure JWT tokens are sent only over HTTPS by setting `JWT_AUTH_SECURE` to `True`                               | Set `JWT_AUTH_SECURE = True` in `settings.py`   |
 | 13   | Specify the name of the authentication cookie by setting `JWT_AUTH_COOKIE`                                      | Set `JWT_AUTH_COOKIE = 'my-app-auth'` in `settings.py`|
