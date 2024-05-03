@@ -2,8 +2,11 @@
 
 <br>
 
-[Code Institute Gitpod Full Template](https://github.com/Code-Institute-Org/gitpod-full-template)
+Please use this template: [Code Institute Gitpod Full Template](https://github.com/Code-Institute-Org/gitpod-full-template)
 
+<br>
+
+#### Development workspace setup
 
 | Step | Description                                                                  | Command                                          |
 |------|------------------------------------------------------------------------------|--------------------------------------------------|
