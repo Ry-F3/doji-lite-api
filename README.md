@@ -38,7 +38,7 @@ Please use this template: [Code Institute Gitpod Full Template](https://github.c
 | 7    | Set the `SITE_ID` to 1                                                                                         | Set `SITE_ID = 1` in `settings.py`              |
 | 8    | Include `dj_rest_auth.registration.urls` in the main URL patterns list                                         | Add `path('dj-rest-auth/registration/', include('dj_rest_auth.registration.urls'))` to `urls.py`           |
 | 9    | Install `djangorestframework-simplejwt` package for JWT token support                                           | `pip install djangorestframework-simplejwt`     |
-| 10   | Configure DRF authentication settings based on environment (development or production)                         | Update `REST_FRAMEWORK` settings in `settings.py` as follows: [Click](settings.md)|
+| 10   | Configure DRF authentication settings based on environment (development or production)                         | Update `REST_FRAMEWORK` settings in `settings.py` as follows: [Click here](settings.md)|
 | 11   | Enable token authentication in DRF by setting `REST_USE_JWT` to `True`                                          | Set `REST_USE_JWT = True` in `settings.py`      |
 | 12   | Ensure JWT tokens are sent only over HTTPS by setting `JWT_AUTH_SECURE` to `True`                               | Set `JWT_AUTH_SECURE = True` in `settings.py`   |
 | 13   | Specify the name of the authentication cookie by setting `JWT_AUTH_COOKIE`                                      | Set `JWT_AUTH_COOKIE = 'my-app-auth'` in `settings.py`|
@@ -50,8 +50,18 @@ Please use this template: [Code Institute Gitpod Full Template](https://github.c
 | Step | Description                                                                                                    | Command                                          |
 |------|----------------------------------------------------------------------------------------------------------------|--------------------------------------------------|
 | 1    | Create a `serializer.py` file in the main project folder.                                                    | (Create the file manually)                       |
-| 2    | Add the following code to `serializer.py`.                                                                    | [Click](settings.md)                             |
+| 2    | Add the following code to `serializer.py`.                                                                    | [Click here](settings.md)                             |
 |      |                                                                                                                |                                                   |
-| 3    | Add the settings to `settings.py`.                                                                            | [Click](settings.md)                             |
+| 3    | Add the settings to `settings.py`.                                                                            | [Click here](settings.md)                             |
 |      |                                                                                                                |                                                   |
 | 4    | Run the database migrations.                                                                                  | `python3 manage.py migrate`                      |
+
+<br>
+
+#### Setup <code>root_route</code>
+
+| Step | Description                                                                                                    | Command                                          |
+|------|----------------------------------------------------------------------------------------------------------------|--------------------------------------------------|
+| 1    | Create a `views.py` file in the main project folder.                                                          | (Create the file manually)                       |
+| 2    | Add a basic view for Django Rest Framework (DRF).                                                             | [Click here](#add-basic-view)                    |
+| 3    | Add the URL pattern for the root route and import views.                                                      | Add the following line to the top of the `urls.py` file:<br>`from .views import root_route`<br>Then, add the URL pattern:<br>`path('', root_route),`                      |
