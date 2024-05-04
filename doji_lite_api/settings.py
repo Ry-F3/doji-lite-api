@@ -61,7 +61,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'DEV' in os.environ
 
-ALLOWED_HOSTS = ['localhost', 'doji-lite-api-a2da6b12178c.herokuapp.com',
+ALLOWED_HOSTS = ['localhost', 'https://doji-lite-api-a2da6b12178c.herokuapp.com',
                  '8000-ryf3-dojiliteapi-94g9wtrgbel.ws-eu111.gitpod.io']
 
 
