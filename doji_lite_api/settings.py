@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 
 if os.path.exists('env.py'):
     import env
@@ -45,6 +46,7 @@ REST_USE_JWT = True # enable token auth
 JWT_AUTH_SECURE = True # sent over https only
 JWT_AUTH_COOKIE = 'my-app-auth' # declare cookie name access
 JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token' # declare cookie name refresh
+JWT_AUTH_SAMESITE = 'None'
 
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'doji_lite_api.serializers.CurrentUserSerializer'
@@ -57,9 +59,9 @@ REST_AUTH_SERIALIZERS = {
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = 'DEV' in os.environ
 
-ALLOWED_HOSTS = ['localhost', '8000-ryf3-dojiliteapi-94g9wtrgbel.ws-us110.gitpod.io']
+ALLOWED_HOSTS = ['localhost', 'doji-lite-api-a2da6b12178c.herokuapp.com']
 
 
 # Application definition
@@ -81,6 +83,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'dj_rest_auth.registration',
+    'corsheaders',
 
     'profiles',
 
@@ -95,7 +98,18 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+if 'CLIENT_ORIGIN' in os.environ:
+    CORS_ALLOWED_ORIGINS = [
+        os.environ.get('CLIENT_ORIGIN')
+    ]
+
+CORS_ALLOWED_ORIGIN_REGEXES = [r"^https://.*\.gitpod\.io$",]
+
+
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'doji_lite_api.urls'
 
@@ -121,12 +135,19 @@ WSGI_APPLICATION = 'doji_lite_api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if 'DEV' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    }
+    print("connected")
+
 
 
 # Password validation
