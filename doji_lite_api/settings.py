@@ -42,15 +42,15 @@ if 'DEV' not in os.environ:
         'rest_framework.renderers.JSONRenderer',
     ]
 
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'doji_lite_api.serializers.CurrentUserSerializer'
+}
+
 REST_USE_JWT = True  # enable token auth
 JWT_AUTH_SECURE = True  # sent over https only
 JWT_AUTH_COOKIE = 'my-app-auth'  # declare cookie name access
 JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'  # declare cookie name refresh
 JWT_AUTH_SAMESITE = 'None'
-
-REST_AUTH_SERIALIZERS = {
-    'USER_DETAILS_SERIALIZER': 'doji_lite_api.serializers.CurrentUserSerializer'
-}
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -61,7 +61,8 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'DEV' in os.environ
 
-ALLOWED_HOSTS = [ 'doji-lite-api-a2da6b12178c.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['doji-lite-api-a2da6b12178c.herokuapp.com',
+                 'localhost', '8000-ryf3-dojiliteapi-94g9wtrgbel.ws-eu111.gitpod.io']
 
 # '8000-ryf3-dojiliteapi-94g9wtrgbel.ws-eu111.gitpod.io'
 
