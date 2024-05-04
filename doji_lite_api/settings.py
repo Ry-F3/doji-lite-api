@@ -42,10 +42,10 @@ if 'DEV' not in os.environ:
         'rest_framework.renderers.JSONRenderer',
     ]
 
-REST_USE_JWT = True # enable token auth
-JWT_AUTH_SECURE = True # sent over https only
-JWT_AUTH_COOKIE = 'my-app-auth' # declare cookie name access
-JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token' # declare cookie name refresh
+REST_USE_JWT = True  # enable token auth
+JWT_AUTH_SECURE = True  # sent over https only
+JWT_AUTH_COOKIE = 'my-app-auth'  # declare cookie name access
+JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'  # declare cookie name refresh
 JWT_AUTH_SAMESITE = 'None'
 
 REST_AUTH_SERIALIZERS = {
@@ -61,7 +61,8 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'DEV' in os.environ
 
-ALLOWED_HOSTS = ['localhost', 'doji-lite-api-a2da6b12178c.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', 'doji-lite-api-a2da6b12178c.herokuapp.com',
+                 '8000-ryf3-dojiliteapi-94g9wtrgbel.ws-us110.gitpod.io']
 
 
 # Application definition
@@ -76,6 +77,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary',
     'rest_framework',
+    'django_filters',
     'rest_framework.authtoken',
     'dj_rest_auth',
     'django.contrib.sites',
@@ -105,8 +107,12 @@ if 'CLIENT_ORIGIN' in os.environ:
     CORS_ALLOWED_ORIGINS = [
         os.environ.get('CLIENT_ORIGIN')
     ]
+else:
+    CORS_ALLOWED_ORIGIN_REGEXES = [
+        r"^https://.*\.gitpod\.io$",
+    ]
 
-CORS_ALLOWED_ORIGIN_REGEXES = [r"^https://.*\.gitpod\.io$",]
+CORS_ALLOW_CREDENTIALS = True
 
 
 CORS_ALLOW_CREDENTIALS = True
@@ -147,7 +153,6 @@ else:
         'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
     }
     print("connected")
-
 
 
 # Password validation
